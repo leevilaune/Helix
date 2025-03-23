@@ -1,0 +1,64 @@
+body {
+    background-color: #121212;
+    color: #E0E0E0;
+    font-family: Arial, sans-serif;
+}
+
+a {
+    color: #BB86FC;
+    text-decoration: none;
+}
+
+a:hover {
+    color: #9A67EA;
+}
+
+.btn-primary {
+    background-color: #1E88E5;
+    border-color: #1E88E5;
+    padding: 10px 20px;
+    border-radius: 4px;
+    color: #fff;
+    cursor: pointer;
+    font-size: 16px;
+    margin-top: 10px;
+}
+
+.btn-primary:hover {
+    background-color: #1565C0;
+    border-color: #1565C0;
+}
+
+.card {
+    background-color: #1E1E1E;
+    border: 1px solid #333333;
+    padding: 20px;
+    border-radius: 8px;
+    width: 30%;
+    #text-align: center;
+    margin: 20px auto 0;
+}
+
+label {
+    display: block;
+    font-size: 16px;
+    margin-bottom: 5px;
+    text-align: left;
+    margin-top: 10px;
+}
+
+input[type="text"], input[type="password"] {
+    background-color: #333333;
+    color: #E0E0E0;
+    border: 1px solid #444444;
+    padding: 10px;
+    border-radius: 4px;
+    width: 95%;
+    margin-top: 10px;
+
+}
+
+input[type="text"]:focus, input[type="password"]:focus {
+    border-color: #BB86FC;
+    outline: none;
+}

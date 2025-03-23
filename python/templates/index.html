@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Helix</title>
+    <link rel="stylesheet" href="static/styles/style.css">
+    <script src="static/js/script.js"></script>
+</head>
+<body>
+    <div id="backend-url" data-url="{{ backend_url }}"></div>
+    <div id="data-input" class="card">
+        <label for="username">Username:</label>
+        <input type="text" id="username" name="username">
+
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password">
+        <br>
+        <button class="btn-primary" type="submit" onclick="submitForm()">Submit</button>
+    </div>
+</body>
+</html>
