@@ -10,7 +10,7 @@ async function submitForm() {
     }
     console.log(data)
     try {
-        const response = await fetch('http://80.220.204.247:3000/auth', {
+        const response = await fetch('http://192.168.10.47:3000/auth', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
