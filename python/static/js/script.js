@@ -25,7 +25,9 @@ async function submitForm() {
         const status = await response.json();  // Parse the JSON data
         console.log(status);  // Do something with the data
         console.log(status.username);
-        window.location.href = `/user/${status.username}`;  // Redirect to the specified URL`
+        if(status.status===true){
+            window.location.href = `/user/${status.username}`;
+        }  // Redirect to the specified URL`
     } catch (error) {
         console.error('Error during fetch operation:', error);
     }
