@@ -1,9 +1,7 @@
 console.log("Hello World!");
+let token = ""
 
 async function submitForm() {
-    let backendUrl = document.getElementById('backend-url');
-    console.log(backendUrl.dataset.url);
-    const url = backendUrl.dataset.url;
     const data = {
         name: document.getElementById('username').value,
         password:document.getElementById('password').value,
@@ -26,7 +24,12 @@ async function submitForm() {
         console.log(status);  // Do something with the data
         console.log(status.username);
         if(status.status===true){
-            window.location.href = `/user/${status.username}`;
+            token = status.token;
+            const auth = {
+                user: status.user,
+                token: status.token
+            }
+            window.location.href = `/user/${status.username}?token=${token}`;
         }  // Redirect to the specified URL`
     } catch (error) {
         console.error('Error during fetch operation:', error);
