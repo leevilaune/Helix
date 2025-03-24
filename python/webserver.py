@@ -6,13 +6,16 @@ app = Flask(__name__)
 auth_client = Auth()
 @app.route("/")
 def hello_world():
-    backend_url = os.getenv('BACKEND_URL','http://80.220.204.247:3000')
-    return render_template("index.html",backend_url=backend_url)
+    return render_template("index.html")
 
-@app.route("/user/<user>")
+@app.route("/user/<user>", methods=['GET'])
 def user(user: str):
-    return render_template("user.html",user=user)
-
+    token = request.args.get("token")
+    print(token, auth_client.is_authenticated(user, token))
+    if(auth_client.is_authenticated(user, token)):
+        return render_template("user.html",user=user, auth_status="fully authenticated")
+    else:
+        return render_template("user.html",user=user, auth_status="not authenticated")
 
 @app.route("/auth", methods=["POST","GET"])
 def auth():
@@ -25,4 +28,12 @@ def auth():
     password = data.get('password')
     return jsonify(auth_client.authenticate(username, password))
 
+@app.route("/auth/check",methods=["POST","GET"])
+def auth_check():
+    data = request.get_json()["data"]
+    if(not data):
+        return jsonify({"error": "Invalid or no JSON data received"}), 400
+    token = data.get('token')
+    user = data.get('name')
+    return jsonify(auth_client.is_authenticated(user, token))
 app.run(debug=True, host='0.0.0.0', port=80)
