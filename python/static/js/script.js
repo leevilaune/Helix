@@ -1,6 +1,9 @@
 console.log("Hello World!");
 let token = ""
 
+let user = "";
+const userid = 0;
+
 async function submitForm() {
     const data = {
         name: document.getElementById('username').value,
@@ -25,6 +28,8 @@ async function submitForm() {
         console.log(status.username);
         if(status.status===true){
             token = status.token;
+            user = status.user;
+
             const auth = {
                 user: status.user,
                 token: status.token

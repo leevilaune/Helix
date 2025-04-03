@@ -12,16 +12,16 @@ def hello_world():
 def user(user: str):
     token = request.args.get("token")
     print(token, auth_client.is_authenticated(user, token))
-    if(auth_client.is_authenticated(user, token)):
+    if auth_client.is_authenticated(user, token):
         return render_template("user.html",user=user, auth_status="fully authenticated")
     else:
         return render_template("user.html",user=user, auth_status="not authenticated")
 
 @app.route("/chat")
 def chat():
-    if(auth_client.is_authenticated(request.args.get("user"), request.args.get("token"))):
-        return render_template("chat.html")
-    else: return "not authenticated"
+    if auth_client.is_authenticated(request.args.get("user"), request.args.get("token")):
+        return render_template("chat.html", user = request.args.get("user"))
+    else: return "not authenticated, fuck you"
 @app.route("/auth", methods=["POST","GET"])
 def auth():
     data = request.get_json()["data"]
@@ -44,9 +44,14 @@ def auth_check():
 
 @app.route("/api/message/send",methods=["POST","GET"])
 def message_send():
-    data = request.get_json()["data"]
-    if(not data):
+    data = request.get_json()
+    print(data)
+    if not data:
         return jsonify({"error": "Invalid or no JSON data received"}), 400
-    print(data.get("message"))
+    else:
+        return jsonify({"success":"Message sent"}), 200
+ @app.route("/api/message/fetch")
+ def message_fetch():
 
-app.run(debug=True, host='0.0.0.0', port=5000)
+
+app.run(debug=True, port=5000)
