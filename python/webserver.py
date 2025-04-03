@@ -17,6 +17,11 @@ def user(user: str):
     else:
         return render_template("user.html",user=user, auth_status="not authenticated")
 
+@app.route("/chat")
+def chat():
+    if(auth_client.is_authenticated(request.args.get("user"), request.args.get("token"))):
+        return render_template("chat.html")
+    else: return "not authenticated"
 @app.route("/auth", methods=["POST","GET"])
 def auth():
     data = request.get_json()["data"]

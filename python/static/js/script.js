@@ -20,8 +20,8 @@ async function submitForm() {
             throw new Error('Network response was not ok');
         }
 
-        const status = await response.json();  // Parse the JSON data
-        console.log(status);  // Do something with the data
+        const status = await response.json();
+        console.log(status);
         console.log(status.username);
         if(status.status===true){
             token = status.token;
@@ -30,7 +30,7 @@ async function submitForm() {
                 token: status.token
             }
             window.location.href = `/user/${status.username}?token=${token}`;
-        }  // Redirect to the specified URL`
+        }
     } catch (error) {
         console.error('Error during fetch operation:', error);
     }
