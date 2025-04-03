@@ -50,8 +50,9 @@ def message_send():
         return jsonify({"error": "Invalid or no JSON data received"}), 400
     else:
         return jsonify({"success":"Message sent"}), 200
- #@app.route("/api/message/fetch")
- #def message_fetch():
-    #return "tbd"
+
+@app.route("/api/message/fetch")
+def message_fetch():
+   return "tbd"
 
 app.run(debug=True, port=5000)
