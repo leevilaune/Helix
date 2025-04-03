@@ -11,5 +11,5 @@ CREATE TABLE user (
 CREATE TABLE message (
     user_id BIGINT NOT NULL,
     messages JSON NOT NULL,
-    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+    FOREIGN KEY (user_id) REFERENCES user(id) ON DELETE CASCADE
 );
