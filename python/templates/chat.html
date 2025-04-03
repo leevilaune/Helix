@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Helix - Chat</title>
+    <link rel="stylesheet" href="static/styles/style.css">
+
+</head>
+<body>
+    <div class="card">
+        <h2>Chat</h2>
+        <div class="chat-box" id="chatBox">
+            <div class="chat-message bot-message">Welcome! How can I help you?</div>
+        </div>
+        <input type="text" id="userInput" placeholder="Type a message..." onkeypress="handleKeyPress(event)">
+        <button class="btn-primary" onclick="sendMessage()">Send</button>
+    </div>
+</body>
+</html>
