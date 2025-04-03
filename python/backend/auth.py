@@ -44,12 +44,13 @@ class Auth:
 				return True
 		return False
 
-	def add_user(self, username, password):
-		print(f"Adding user {username} with password {password}")
+	def add_user(self, username, password, role):
+		print(f"Adding user {username} with password {password} and role {role}")
 		passwd = hash_sha256(password)
 		user = {
 			"name": username,
 			"passwd_sha256": password,
+			"role": role,
 		}
 		self.db.commit("user", user)
 
