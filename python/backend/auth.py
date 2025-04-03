@@ -1,29 +1,30 @@
 import hashlib
 import time
-from tokenize import generate_tokens
+from db import Database
 
+def generate_token(username):
+	salted = username+str(time.time())
+	token = hashlib.sha256(salted.encode()).hexdigest()
+	print(token)
+	return token
+
+def hash_sha256(string:str):
+	return hashlib.sha256(string.encode()).hexdigest()
 
 class Auth:
 	def __init__(self):
 		self.authenticated = []
+		self.db = Database()
 		pass
 	def authenticate(self, username, password):
 		print(f"Authenticating user {username} with password {password}")
-		if username == 'user' and password == 'pwd':
-			token = self.generate_token(username)
+		user = self.db.fetch("user",f"name=''{username}")
+		if user["name"] == username and user["passwd_sha256"] == hash_sha256(password):
+			token = generate_token(username)
 			self.authenticated.append({'user': username, 'token': token})
 			return {
-				'username': username,
-				'role': "user",
-				'status': True,
-				'token': token
-			}
-		elif username == 'admin' and password == 'admin':
-			token = self.generate_token(username)
-			self.authenticated.append({'user': username, 'token': token})
-			return  {
-				'username': username,
-				'role': "admin",
+				'username': user["name"],
+				'role': user["role"],
 				'status': True,
 				'token': token
 			}
@@ -32,7 +33,7 @@ class Auth:
 				'username': username,
 				'role': "unknown",
 				'status': False,
-				'token': ""
+				'token': "unauthenticated"
 			}
 
 	def is_authenticated(self, username,token):
@@ -43,8 +44,14 @@ class Auth:
 				return True
 		return False
 
-	def generate_token(self, username):
-		salted = username+str(time.time())
-		token = hashlib.sha256(salted.encode()).hexdigest()
-		print(token)
-		return token
+	def add_user(self, username, password):
+		print(f"Adding user {username} with password {password}")
+		passwd = hash_sha256(password)
+		user = {
+			"name": username,
+			"passwd_sha256": password,
+		}
+		self.db.commit("user", user)
+
+
+

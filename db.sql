@@ -1,0 +1,15 @@
+CREATE DATABASE IF NOT EXISTS helixdb;
+USE helixdb;
+
+CREATE TABLE user (
+    id BIGINT PRIMARY KEY AUTO_INCREMENT,
+    name TEXT NOT NULL,
+    passwd_sha256 TEXT NOT NULL,
+    role TEXT NOT NULL
+);
+
+CREATE TABLE message (
+    user_id BIGINT NOT NULL,
+    messages JSON NOT NULL,
+    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+);
