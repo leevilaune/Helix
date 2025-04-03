@@ -36,4 +36,12 @@ def auth_check():
     token = data.get('token')
     user = data.get('name')
     return jsonify(auth_client.is_authenticated(user, token))
-app.run(debug=True, host='0.0.0.0', port=80)
+
+@app.route("/api/message/send",methods=["POST","GET"])
+def message_send():
+    data = request.get_json()["data"]
+    if(not data):
+        return jsonify({"error": "Invalid or no JSON data received"}), 400
+    print(data.get("message"))
+
+app.run(debug=True, host='0.0.0.0', port=5000)

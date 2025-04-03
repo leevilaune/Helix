@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat Page</title>
+    <style>
+        body {
+            background-color: #121212;
+            color: #E0E0E0;
+            font-family: Arial, sans-serif;
+        }
+        a {
+            color: #BB86FC;
+            text-decoration: none;
+        }
+        a:hover {
+            color: #9A67EA;
+        }
+        .btn-primary {
+            background-color: #1E88E5;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            color: #fff;
+            cursor: pointer;
+            font-size: 16px;
+            margin-top: 10px;
+        }
+        .btn-primary:hover {
+            background-color: #1565C0;
+        }
+        .card {
+            background-color: #1E1E1E;
+            border: 1px solid #333333;
+            padding: 20px;
+            border-radius: 8px;
+            width: 40%;
+            margin: 20px auto;
+        }
+        .chat-box {
+            height: 300px;
+            overflow-y: auto;
+            border: 1px solid #444;
+            background-color: #333;
+            padding: 10px;
+            border-radius: 4px;
+        }
+        .chat-message {
+            margin-bottom: 10px;
+            padding: 8px;
+            border-radius: 4px;
+        }
+        .user-message {
+            background-color: #1E88E5;
+            text-align: right;
+        }
+        .bot-message {
+            background-color: #444;
+        }
+        input[type="text"] {
+            background-color: #333333;
+            color: #E0E0E0;
+            border: 1px solid #444444;
+            padding: 10px;
+            border-radius: 4px;
+            width: calc(100% - 22px);
+            margin-top: 10px;
+        }
+        input[type="text"]:focus {
+            border-color: #BB86FC;
+            outline: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <h2>Chat</h2>
+        <div class="chat-box" id="chatBox">
+            <div class="chat-message bot-message">Welcome! How can I help you?</div>
+        </div>
+        <input type="text" id="userInput" placeholder="Type a message..." onkeypress="handleKeyPress(event)">
+        <button class="btn-primary" onclick="sendMessage()">Send</button>
+    </div>
+
+    <script>
+        function sendMessage() {
+            let input = document.getElementById("userInput");
+            let message = input.value.trim();
+            if (message === "") return;
+
+            let chatBox = document.getElementById("chatBox");
+            let userMessage = document.createElement("div");
+            userMessage.classList.add("chat-message", "user-message");
+            userMessage.textContent = message;
+            chatBox.appendChild(userMessage);
+
+            input.value = "";
+            chatBox.scrollTop = chatBox.scrollHeight;
+
+            setTimeout(() => {
+                let botMessage = document.createElement("div");
+                botMessage.classList.add("chat-message", "bot-message");
+                botMessage.textContent = "Echo: " + message;
+                chatBox.appendChild(botMessage);
+                chatBox.scrollTop = chatBox.scrollHeight;
+            }, 1000);
+        }
+
+        function handleKeyPress(event) {
+            if (event.key === "Enter") {
+                sendMessage();
+            }
+        }
+    </script>
+</body>
+</html>
