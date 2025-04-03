@@ -49,7 +49,7 @@ class Auth:
 		passwd = hash_sha256(password)
 		user = {
 			"name": username,
-			"passwd_sha256": password,
+			"passwd_sha256": passwd,
 			"role": role,
 		}
 		self.db.commit("user", user)
