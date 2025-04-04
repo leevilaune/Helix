@@ -21,19 +21,23 @@ class Auth:
 		if user["name"] == username and user["passwd_sha256"] == hash_sha256(password):
 			token = generate_token(username)
 			self.authenticated.append({'user': username, 'token': token})
-			return {
+			user_dict = {
 				'username': user["name"],
 				'role': user["role"],
 				'status': True,
-				'token': token
+				'token': token,
+				'user_id': user["id"],
 			}
 		else:
-			return {
+			user_dict = {
 				'username': username,
 				'role': "unknown",
 				'status': False,
-				'token': "unauthenticated"
+				'token': "unauthenticated",
+				'user_id': 0,
 			}
+		self.authenticated.append(user_dict)
+		return user_dict
 
 	def is_authenticated(self, username,token):
 		for user in self.authenticated:
@@ -42,6 +46,11 @@ class Auth:
 				print(f"Token accepted {user['token']==token}")
 				return True
 		return False
+
+	def get_user(self, username):
+		for user in self.authenticated:
+			if user['user'] == username:
+				return user
 
 	def add_user(self, username, password, role):
 		print(f"Adding user {username} with password {password} and role {role}")

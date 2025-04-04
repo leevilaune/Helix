@@ -29,6 +29,7 @@ class Database:
 	def fetch(self,table:str, condition:str):
 		try:
 			query = f"SELECT * FROM {table} WHERE {condition}"
+			print(query)
 			self.cursor.execute(query)
 			return self.cursor.fetchall()
 		except Exception as e:
@@ -37,7 +38,6 @@ class Database:
 
 	def update(self):
 		pass
-
 
 	def delete(self):
 		pass
