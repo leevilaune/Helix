@@ -17,7 +17,7 @@ class Auth:
 		pass
 	def authenticate(self, username, password):
 		print(f"Authenticating user {username} with password {password}")
-		user = self.db.fetch("user",f"name='{username}'")[0]
+		user = self.db.fetch("user","*",f"name='{username}'")[0]
 		if user["name"] == username and user["passwd_sha256"] == hash_sha256(password):
 			token = generate_token(username)
 			self.authenticated.append({'user': username, 'token': token})

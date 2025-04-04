@@ -13,8 +13,9 @@ async function sendMessage() {
     console.log(message);
     const msg = {
         "message": message,
-        "user": user,
+        "sender": user,
         "time": new Date().getTime(),
+        "receiver": "",
     }
     try {
         const response = await fetch("/api/message/send", {
@@ -35,14 +36,16 @@ async function sendMessage() {
         console.log(err);
     }
 }
-async function updateMessages() {
-    let input = document.getElementById("userInput");
-    let message = input.value.trim();
-    if (message === "") return;
+async function updateMessages(messages) {
     let chatBox = document.getElementById("chatBox");
     const user = document.getElementById("userName").firstChild.nodeValue;
     console.log(user);
-
+    messages.forEach((message) => {
+        let userMessage = document.createElement("div");
+        userMessage.classList.add("chat-message", "user-message");
+        userMessage.innerHTML = `<div class="message-header">@${user}</div><div class="message-content">${message}</div>`;
+        chatBox.appendChild(userMessage);
+    })
 }
 async function getMessages() {
     const messages = await fetch(`/api/messages`, {

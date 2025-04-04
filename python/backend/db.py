@@ -26,9 +26,9 @@ class Database:
 			print(e)
 			return False
 
-	def fetch(self,table:str, condition:str):
+	def fetch(self,table:str, fields:str, condition:str):
 		try:
-			query = f"SELECT * FROM {table} WHERE {condition}"
+			query = f"SELECT {fields} FROM {table} WHERE {condition}"
 			print(query)
 			self.cursor.execute(query)
 			return self.cursor.fetchall()

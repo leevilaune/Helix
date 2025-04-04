@@ -2,10 +2,12 @@ import os
 from flask import Flask, request, jsonify,render_template
 from backend.auth import Auth
 from backend.db import Database
+from backend.messages import MessageClient
 
 app = Flask(__name__)
 db = Database()
 auth_client = Auth(db=db)
+msg = MessageClient(db=db,auth=auth_client)
 @app.route("/")
 def hello_world():
     return render_template("index.html")
@@ -18,6 +20,11 @@ def user(user: str):
         return render_template("user.html",user=user, auth_status="fully authenticated")
     else:
         return render_template("user.html",user=user, auth_status="not authenticated")
+
+@app.route("/user/get")
+def get_user():
+    username = request.args.get("user")
+    db.fetch("user","id,name",f"name='{username}'")
 
 @app.route("/chat")
 def chat():
