@@ -1,9 +1,11 @@
 import os
 from flask import Flask, request, jsonify,render_template
 from backend.auth import Auth
+from python.backend.db import Database
 
 app = Flask(__name__)
-auth_client = Auth()
+db = Database()
+auth_client = Auth(db=db)
 @app.route("/")
 def hello_world():
     return render_template("index.html")

@@ -1,6 +1,5 @@
 import hashlib
 import time
-from backend.db import Database
 
 def generate_token(username):
 	salted = username+str(time.time())
@@ -12,9 +11,9 @@ def hash_sha256(string:str):
 	return hashlib.sha256(string.encode()).hexdigest()
 
 class Auth:
-	def __init__(self):
+	def __init__(self, db):
 		self.authenticated = []
-		self.db = Database()
+		self.db = db
 		pass
 	def authenticate(self, username, password):
 		print(f"Authenticating user {username} with password {password}")
