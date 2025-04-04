@@ -1,5 +1,5 @@
-from python.backend.db import Database
-import python.backend.auth as auth
+from ..backend.db import Database
+import ..backend.auth as auth
 
 auth = auth.Auth()
 
