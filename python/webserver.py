@@ -24,7 +24,7 @@ def user(user: str):
 @app.route("/user/get")
 def get_user():
     username = request.args.get("user")
-    db.fetch("user","id,name",f"name='{username}'")
+    return db.fetch("user","id,name",f"name='{username}'")
 
 @app.route("/chat")
 def chat():
