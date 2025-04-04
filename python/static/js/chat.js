@@ -29,7 +29,7 @@ async function sendMessage() {
         }
         let userMessage = document.createElement("div");
         userMessage.classList.add("chat-message", "user-message");
-        userMessage.innerHTML = `<div class="message-header">${user}</div><div class="message-content">${message}</div>`;
+        userMessage.innerHTML = `<div class="message-header">@${user}</div><div class="message-content">${message}</div>`;
         chatBox.appendChild(userMessage);
     } catch (err) {
         console.log(err);
