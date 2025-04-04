@@ -1,7 +1,7 @@
 import os
 from flask import Flask, request, jsonify,render_template
 from backend.auth import Auth
-from python.backend.db import Database
+from backend.db import Database
 
 app = Flask(__name__)
 db = Database()
