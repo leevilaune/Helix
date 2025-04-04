@@ -10,6 +10,10 @@ else
     echo "$(date) Failed to kill webserver process"
 fi
 
+# Ensure the environment is set correctly
+export PATH=$PATH:/home/null/.local/bin
+export PYTHONPATH=$PYTHONPATH:/home/null/.local/lib/python3.11/site-packages
+
 # Starting webserver.py
 nohup python3 "$python_folder/webserver.py" > "$python_folder/webserver.log" 2>&1 &
 if [ $? -eq 0 ]; then
